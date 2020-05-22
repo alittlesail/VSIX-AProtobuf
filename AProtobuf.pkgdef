@@ -1,0 +1,39 @@
+﻿; Associate icons with file extensions in Solution Explorer
+; Find more icons at http://glyphlist.azurewebsites.net/knownmonikers/
+[$RootKey$\ShellFileAssociations\.proto]
+"DefaultIconMoniker"="0b7f4258-43fc-4756-8d9b-e99d81c3e626:0"
+
+; The following line will schedule the package to be initialized when a solution is being opened
+[$RootKey$\InstalledProducts\VSPackage]
+@="google protobuf"
+"PID"="1.0"
+"ProductDetails"="google protobuf"
+
+; package load
+[$RootKey$\Packages\{e19f888c-379d-4f12-8c71-bce3590d3421}]
+@="AProtobufPackage"
+"InprocServer32"="$WinDir$\SYSTEM32\MSCOREE.DLL"
+"Class"="ALittle.AProtobufPackage"
+"CodeBase"="$PackageFolder$\AProtobuf.dll"
+"AllowsBackgroundLoad"=dword:00000001
+
+; d2567162-f94f-4091-8798-a096e61b8b50 is VSConstants.UICONTEXT.SolutionOpening_string
+[$RootKey$\AutoLoadPackages\{d2567162-f94f-4091-8798-a096e61b8b50}]
+"{e19f888c-379d-4f12-8c71-bce3590d3421}"=dword:00000002
+
+[$RootKey$\Menus]
+"{e19f888c-379d-4f12-8c71-bce3590d3421}"=", Menus.ctmenu, 1"
+
+[$RootKey$\ToolsOptionsPages\AProtobuf]
+@="#0"
+"Package"="{e19f888c-379d-4f12-8c71-bce3590d3421}"
+[$RootKey$\ToolsOptionsPages\AProtobuf\General]
+@="#0"
+"Package"="{e19f888c-379d-4f12-8c71-bce3590d3421}"
+"Page"="{a154cbb1-baa5-39e9-b003-d08dff44e43f}"
+[$RootKey$\AutomationProperties\AProtobuf]
+"Package"="{e19f888c-379d-4f12-8c71-bce3590d3421}"
+[$RootKey$\AutomationProperties\AProtobuf\General]
+"Package"="{e19f888c-379d-4f12-8c71-bce3590d3421}"
+[$RootKey$\AutomationProperties\AProtobuf\General]
+"Name"="AProtobuf.General"

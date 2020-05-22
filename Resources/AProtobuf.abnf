@@ -1,0 +1,76 @@
+
+// 语法树的跟【Root是系统内置，必须定义Root作为语法根节点，没有定义会报错】
+Root = Syntax? (Package | Import | Extend | Message | Enum | Option)*;
+// 行注释【LineComment是系统内置的行注释语法规则名】
+LineComment : "\A/{1}" = "\A//{1}.*";
+// 块注释【BlockComment是系统内置的块注释语法规则名】
+BlockComment : "\A/{1}" = "\A/\*{1}([^*/]|\*(?!/)|/(?<!\*))*((?=\*/))(\*/)";
+
+// 字符串
+Text : "\A\"{1}" = "\A\"{1}([^\"\\\\]|\\\\.)*\"";
+// 规则名称
+Id : "\A[_a-zA-Z0-9]{1}" = "\A[_a-zA-Z0-9]{1}[_a-zA-Z0-9]*";
+// 整型数值
+Number : "\A[0-9]{1}" = "\A[0-9]{1}[0-9]*";
+// 布尔类型
+Bool = <true> | <false>;
+// 常量类型
+Const = Text | Bool | Number;
+
+// 语法
+Syntax = <syntax>@ '='@ Text ';'?;
+
+// 包
+Package = <package>@ PackageName ';'?;
+PackageName = Id@ ('.'@ Id)*;
+
+// 导入
+Import = <import>@ Text ';'?;
+
+// 配置
+Option = <option>@ Id '='@ OptionValue ';';
+OptionValue = Const | Id;
+
+// 自定义类型
+CustomType = Id@ ('.'@ Id)*;
+// 基本变量类型
+PrimitiveType = <int32> | <uint32> | <int64> | <uint64> | <sint32> | <sint64>
+					| <fixed32> | <fixed64> | <sfixed32> | <sfixed64>
+					| <string> | <bool> | <float> | <double> | <bytes>;
+// 数组
+RepeatedType = <repeated>@ (PrimitiveType | CustomType);
+// 映射表
+MapType = <map>@ '<'@ AllType ','@ (PrimitiveType | CustomType) '>';
+// 全部类型
+AllType = RepeatedType | MapType | PrimitiveType | CustomType;
+
+// Extend定义
+Extend = <extend>@ (CustomType MessageBody?)?;
+
+// Oneof定义
+Oneof = <oneof>@ (OneofName MessageBody?)?;
+OneofName = Id#;
+
+// Message定义
+Message = <message>@ (MessageName MessageBody?)?;
+MessageName = Id#;
+
+MessageBody = '{'@ (Enum | Message | Oneof | MessageOption | MessageExtensions | MessageReserved | MessageVar)* '}';
+MessageVarModifier = <required> | <optional> | <singular>;
+MessageVar = (MessageVarModifier@)? AllType@ MessageVarName@ '='@ Number MessageVarOption? ';';
+MessageVarName = Id;
+MessageVarOption = '['@ Id '=' MessageVarOptionValue ']';
+MessageVarOptionValue = Const | Id;
+
+MessageOption = <option>@ '('@ CustomType ')' '=' Const ';';
+
+MessageExtensions = <extensions>@ Number <to> (<max> | Number) ';';
+MessageReserved = <reserved>@ MessageReservedValue (',' MessageReservedValue)* ';';
+MessageReservedValue = Text | ( Number (<to>@ (Number | <max>))? );
+
+// Enum定义
+Enum = <enum>@ (EnumName EnumBody?)?;
+EnumBody = '{'@ EnumVar* '}';
+EnumName = Id#;
+EnumVar = EnumVarName@ '='@ Number ';';
+EnumVarName = Id;
