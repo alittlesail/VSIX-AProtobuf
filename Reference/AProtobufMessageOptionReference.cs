@@ -145,7 +145,7 @@ namespace ALittle
                         return new ABnfGuessError(const_value, id_text + "必须使用字符串赋值");
                     var const_string = const_text.GetElementString();
 
-                    if (!int.TryParse(const_string, out int result))
+                    if (!long.TryParse(const_string, out long result))
                         return new ABnfGuessError(const_value, id_text + "必须是一个数字");
                     if (result <= 0)
                         return new ABnfGuessError(const_value, id_text + "必须大于0");
@@ -167,7 +167,7 @@ namespace ALittle
                         return new ABnfGuessError(const_value, id_text + "必须使用字符串赋值");
                     var const_string = const_text.GetElementString();
 
-                    if (const_string != "true" || const_string != "false")
+                    if (const_string != "true" && const_string != "false")
                         return new ABnfGuessError(const_value, id_text + "只能填\"true\"或\"false\"");
                 }
             }
