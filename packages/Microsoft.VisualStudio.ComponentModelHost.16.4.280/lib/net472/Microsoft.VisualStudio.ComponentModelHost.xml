@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.VisualStudio.ComponentModelHost</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.VisualStudio.ComponentModelHost.DefGuidList">
+            <summary>
+            Guids used for VS services
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.ComponentModelHost.DefGuidList.GuidComponentModelServiceString">
+            <summary>
+            The service GUID for <see cref="T:Microsoft.VisualStudio.ComponentModelHost.SComponentModel"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.ComponentModelHost.DefGuidList.GuidComponentModelHostServiceString">
+            <summary>
+            The service GUID for <see cref="T:Microsoft.VisualStudio.Shell.Interop.SVsComponentModelHost"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.ComponentModelHost.IComponentModel">
+            <summary>
+            The interface provides the ability to access the default MEF composition container and catalogs of Visual Studio.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.DefaultCatalog">
+            <summary>
+            Gets the default Visual Studio catalog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.DefaultExportProvider">
+            <summary>
+            Gets the export provider of the default composition container of the Visual Studio.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.DefaultCompositionService">
+            <summary>
+            Gets the composition service of Visual Studio default composition container that allows satisfying imports of object without them being a part of the container.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.GetCatalog(System.String)">
+            <summary>
+            Provides access to a MEF catalog by name.
+            </summary>
+            <param name="catalogName">Name of the catalog cannot be null or an empty string.</param>
+            <returns>The requested catalog instance.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when catalogName argument is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when catalogName argument is an empty string.</exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.GetService``1">
+            <summary>
+            Gets a "service" from the default composition container, i.e. an object of which there can only a single instance exist in a given composition container.
+            Equals to calling <see cref="M:System.ComponentModel.Composition.Hosting.ExportProvider.GetExportedValue``1"/> directly.
+            </summary>
+            <typeparam name="T">The type of the object to get.</typeparam>
+            <returns>The instance of the requested object.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.ComponentModelHost.IComponentModel.GetExtensions``1">
+            <summary>
+            Gets an enumeration of "extensions" from the default composition container, i.e. objects of which there can multiple instances exist in a given composition container.
+            Equals to calling <see cref="M:System.ComponentModel.Composition.Hosting.ExportProvider.GetExportedValues``1"/> directly.
+            </summary>
+            <typeparam name="T">The type of the object to get.</typeparam>
+            <returns>The instance(s) of the requested object(s).</returns>
+        </member>
+        <member name="T:Microsoft.VisualStudio.ComponentModelHost.IComponentModel2">
+            <summary>
+            The interface provides the ability to access the default MEF composition container and catalogs of Visual Studio.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.ComponentModelHost.IComponentModel2.DefaultScopedCatalog">
+            <summary>
+            Gets the default scoped Visual Studio catalog.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.ComponentModelHost.SComponentModel">
+            <summary>
+            The service identity of the MEF host in Visual Studio.
+            </summary>
+        </member>
+    </members>
+</doc>
