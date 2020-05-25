@@ -13,6 +13,11 @@ namespace ALittle
             blur = false;
             return "AProtobufComment";
         }
+
+        public override bool CanGotoDefinition()
+        {
+            return false;
+        }
     }
 }
 

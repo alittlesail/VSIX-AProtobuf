@@ -58,6 +58,7 @@ namespace ALittle
             if (element is AProtobufKeyElement) return new AProtobufKeyReference(element);
             if (element is AProtobufSyntaxElement) return new AProtobufSyntaxReference(element);
             if (element is AProtobufTextElement) return new AProtobufTextReference(element);
+            if (element is AProtobufRegexElement) return new AProtobufRegexReference(element);
 
             return null;
         }

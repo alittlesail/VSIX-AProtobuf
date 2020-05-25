@@ -11,7 +11,7 @@
 //***************************************************************************-->
 <PackageManifest Version="2.0.0" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
     <Metadata>
-        <Identity Id="c729d6b2-f513-49ed-893d-a8f61f25db90" Version="4.45" Language="zh-Hans" Publisher="ouxingfan" />
+        <Identity Id="c729d6b2-f513-49ed-893d-a8f61f25db90" Version="4.47" Language="zh-Hans" Publisher="ouxingfan" />
         <DisplayName>AProtobuf</DisplayName>
         <Description xml:space="preserve">语法高亮;
 智能提示;

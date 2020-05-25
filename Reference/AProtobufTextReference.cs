@@ -42,5 +42,10 @@ namespace ALittle
 
             return null;
         }
+
+        public override bool CanGotoDefinition()
+        {
+            return false;
+        }
     }
 }
