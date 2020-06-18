@@ -111,7 +111,7 @@ namespace ALittle
                 full_path = enum_info.element.GetFullPath();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
+					ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
                                             , full_path, 0, 0);
                 });
                 return;
@@ -125,7 +125,7 @@ namespace ALittle
             int length = name_dec.GetLength();
             Application.Current.Dispatcher.Invoke(() =>
             {
-                ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
+				ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
                                         , full_path, start, length);
             });
         }
@@ -149,7 +149,7 @@ namespace ALittle
                 
             package = string.Join(".", temp_split);
 
-            ABnfElement element = null;
+			ABnfElement element = null;
             // 获取所有工程
             foreach (var pair in projects)
             {
@@ -273,7 +273,7 @@ namespace ALittle
             int length = element.GetLength();
             Application.Current.Dispatcher.Invoke(() =>
             {
-                ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
+				ALanguageUtility.OpenFile(m_open_document, m_adapters_factory
                                         , full_path, start, length);
             });
 
@@ -328,10 +328,15 @@ namespace ALittle
             if (node is AProtobufBlockCommentElement) return null;
             return input;
         }
-    }
+
+		public override bool FormatViewContent(UIViewItem info)
+		{
+            return false;
+		}
+	}
 
     public class AProtobufReferenceTemplate<T> : ABnfReferenceTemplate<T> where T : ABnfElement
-    {
+	{
         public AProtobufReferenceTemplate(ABnfElement element) : base(element) { }
 
         public AProtobufFile m_file { get { return m_element.GetFile() as AProtobufFile; } }
