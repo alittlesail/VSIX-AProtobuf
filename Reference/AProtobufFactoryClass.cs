@@ -60,7 +60,7 @@ namespace ALittle
             if (element is AProtobufTextElement) return new AProtobufTextReference(element);
             if (element is AProtobufRegexElement) return new AProtobufRegexReference(element);
 
-            return null;
+            return new AProtobufReferenceTemplate<ABnfElement>(element);
         }
 
         public bool IsInt(string value) { return m_int_set.Contains(value); }
@@ -332,8 +332,8 @@ namespace ALittle
 		public override bool FormatViewContent(UIViewItem info)
 		{
             return false;
-		}
-	}
+        }
+    }
 
     public class AProtobufReferenceTemplate<T> : ABnfReferenceTemplate<T> where T : ABnfElement
 	{
@@ -341,6 +341,11 @@ namespace ALittle
 
         public AProtobufFile m_file { get { return m_element.GetFile() as AProtobufFile; } }
         public AProtobufProjectInfo m_project { get { return m_element.GetFile().GetProjectInfo() as AProtobufProjectInfo; } }
+
+        public override int GetFormateIndentation(int offset, ABnfElement select)
+        {
+            return m_element.GetParent().GetReference().GetFormateIndentation(offset, null);
+        }
     }
 }
 
