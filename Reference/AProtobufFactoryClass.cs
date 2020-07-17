@@ -344,7 +344,9 @@ namespace ALittle
 
         public override int GetFormateIndentation(int offset, ABnfElement select)
         {
-            return m_element.GetParent().GetReference().GetFormateIndentation(offset, null);
+            var parent = m_element.GetParent();
+            if (parent == null) return 0;
+            return parent.GetReference().GetFormateIndentation(offset, select);
         }
     }
 }
