@@ -10,6 +10,10 @@ namespace ALittle
         
         public override ABnfGuessError CheckError()
         {
+            // 检查最后的分号
+            if (m_element.GetString() == null)
+                return new ABnfGuessError(m_element, "import必须以;结尾");
+
             ABnfElement child = m_element.GetText();
             if (child == null) return null;
 
@@ -28,7 +32,7 @@ namespace ALittle
                 if (File.Exists(full_path)) return null;
             }
 
-            return new ABnfGuessError(child, "Import的文件不存在");
+            return new ABnfGuessError(child, "import的文件不存在");
         }
 
         public override bool QueryCompletion(int offset, List<ALanguageCompletionInfo> list)

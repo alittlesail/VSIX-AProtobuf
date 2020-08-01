@@ -263,6 +263,7 @@
     <Compile Include="Reference\AProtobufMessageReference.cs" />
     <Compile Include="Reference\AProtobufMessageBodyReference.cs" />
     <Compile Include="Reference\AProtobufKeyReference.cs" />
+    <Compile Include="Reference\AProtobufPackageReference.cs" />
     <Compile Include="Reference\AProtobufPrimitiveTypeReference.cs" />
     <Compile Include="Reference\AProtobufRegexReference.cs" />
     <Compile Include="Reference\AProtobufSyntaxReference.cs" />

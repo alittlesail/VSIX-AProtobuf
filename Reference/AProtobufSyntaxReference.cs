@@ -7,6 +7,10 @@ namespace ALittle
 
         public override ABnfGuessError CheckError()
         {
+            // 检查最后的分号
+            if (m_element.GetStringList().Count < 2)
+                return new ABnfGuessError(m_element, "syntax语句必须以;结尾");
+
             var child = m_element.GetText();
             if (child == null) return null;
 

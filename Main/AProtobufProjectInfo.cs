@@ -324,6 +324,26 @@ namespace ALittle
             return null;
         }
 
+        public ABnfElement FindEnumVarNameInAllPackgae(string name)
+        {
+            foreach (var ref_set in m_refrences.Values)
+			{
+                foreach (var enum_set in ref_set.m_enum_info.Values)
+                {
+                    foreach (var enum_info in enum_set)
+					{
+                        foreach (var info in enum_info.enums.Values)
+						{
+                            if (info.name_map.TryGetValue(name, out var value))
+                                return value;
+						}
+					}
+                }
+            }
+
+            return null;
+        }
+
         public ABnfElement FindElement(string package, string name)
         {
             m_refrences.TryGetValue(package, out AProtobufRefrenceInfo refernce_info);

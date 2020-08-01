@@ -54,6 +54,7 @@ namespace ALittle
             if (element is AProtobufMessageVarNameElement) return new AProtobufMessageVarNameReference(element);
             if (element is AProtobufNumberElement) return new AProtobufNumberReference(element);
             if (element is AProtobufPackageNameElement) return new AProtobufPackageNameReference(element);
+            if (element is AProtobufPackageElement) return new AProtobufPackageReference(element);
             if (element is AProtobufPrimitiveTypeElement) return new AProtobufPrimitiveTypeReference(element);
             if (element is AProtobufKeyElement) return new AProtobufKeyReference(element);
             if (element is AProtobufSyntaxElement) return new AProtobufSyntaxReference(element);
@@ -256,6 +257,23 @@ namespace ALittle
                                 break;
                             }
                         }
+                    }
+                }
+            }
+
+            // 把name当做枚举字段名查找
+            if (element == null)
+            {
+                // 获取所有工程
+                foreach (var pair in projects)
+                {
+                    var project = pair.Value as AProtobufProjectInfo;
+                    if (project == null) continue;
+
+                    if (package == "")
+                    {
+                        element = project.FindEnumVarNameInAllPackgae(name);
+                        if (element != null) break;
                     }
                 }
             }
