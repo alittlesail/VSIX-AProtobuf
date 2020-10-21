@@ -11,15 +11,9 @@
 //***************************************************************************-->
 <PackageManifest Version="2.0.0" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
     <Metadata>
-        <Identity Id="c729d6b2-f513-49ed-893d-a8f61f25db90" Version="4.58" Language="zh-Hans" Publisher="ouxingfan" />
+        <Identity Id="c729d6b2-f513-49ed-893d-a8f61f25db90" Version="4.59" Language="zh-Hans" Publisher="ouxingfan" />
         <DisplayName>AProtobuf</DisplayName>
-        <Description xml:space="preserve">语法高亮;
-智能提示;
-引用预览;
-引用跳转;
-格式化代码;
-单文件生成;
-整个工程生成;</Description>
+        <Description xml:space="preserve">语法高亮 智能提示 引用预览 引用跳转 格式化代码 单文件生成 整个工程生成</Description>
         <Icon>Resources\AProtobufFile.png</Icon>
         <PreviewImage>Resources\AProtobufFile.png</PreviewImage>
         <Tags>protobuf</Tags>
