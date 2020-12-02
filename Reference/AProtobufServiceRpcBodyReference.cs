@@ -1,14 +1,14 @@
 ﻿
 namespace ALittle
 {
-    public class AProtobufEnumBodyReference : AProtobufReferenceTemplate<AProtobufEnumBodyElement>
+    public class AProtobufServiceRpcBodyReference : AProtobufReferenceTemplate<AProtobufServiceRpcBodyElement>
     {
-        public AProtobufEnumBodyReference(ABnfElement element) : base(element) { }
+        public AProtobufServiceRpcBodyReference(ABnfElement element) : base(element) { }
 
         public override int GetDesiredIndentation(int offset, ABnfElement select)
         {
             ABnfElement parent = m_element.GetParent();
-            if (parent is AProtobufEnumElement)
+            if (parent is AProtobufServiceRpcElement)
             {
                 var childs = m_element.GetChilds();
                 if (select is ABnfStringElement && (select.GetElementText() == "{" || (select.GetElementText() == "}" && childs.Count > 0 && childs[0].GetStartLine() != select.GetStartLine())))
@@ -18,11 +18,10 @@ namespace ALittle
             }
             return 0;
         }
-
         public override int GetFormateIndentation(int offset, ABnfElement select)
         {
             ABnfElement parent = m_element.GetParent();
-            if (parent is AProtobufEnumElement)
+            if (parent is AProtobufServiceRpcElement)
             {
                 if (select is ABnfStringElement && (select.GetElementText() == "{" || select.GetElementText() == "}"))
                     return parent.GetReference().GetFormateIndentation(offset, null);

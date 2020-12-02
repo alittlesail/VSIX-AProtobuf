@@ -6,7 +6,6 @@ using System.Windows;
 
 namespace ALittle
 {
-
     // Message类型
     public class AProtobufMessageInfo
     {
@@ -157,6 +156,10 @@ namespace ALittle
                     else if (child.GetNodeType() == "Extend")
                     {
                         FormatExtend(child as AProtobufExtendElement, "", ref buffer);
+                    }
+                    else if (child.GetNodeType() == "Service")
+                    {
+                        FormatService(child as AProtobufServiceElement, "", ref buffer);
                     }
                     else if (child.GetNodeType() == "LineComment")
                     {
@@ -316,6 +319,199 @@ namespace ALittle
                 last_line = sub_child.GetEndLine();
             }
             buffer += indent + "}\n";
+        }
+
+        public void FormatService(AProtobufServiceElement child, string indent, ref string buffer)
+        {
+            var service_name = child.GetServiceName();
+            if (service_name == null) throw new System.Exception("child.GetServiceName() == null");
+
+            buffer += indent + "service " + service_name.GetElementText() + "\n";
+
+            var service_body = child.GetServiceBody();
+            if (service_body == null) throw new System.Exception("child.GetServiceBody() == null");
+
+            buffer += indent + "{\n";
+
+            int last_line = 0;
+            var child_list = service_body.GetChilds();
+            for (int index = 0; index < child_list.Count; ++index)
+            {
+                var sub_child = child_list[index];
+                ABnfElement next_child = null;
+                if (index + 1 < child_list.Count) next_child = child_list[index + 1];
+
+                if (last_line != 0)
+                {
+                    int line_count = sub_child.GetStartLine() - last_line - 1;
+                    for (int i = 0; i < line_count; ++i) buffer += "\n";
+                }
+
+                if (sub_child is AProtobufServiceRpcElement)
+                {
+                    var sub_element = sub_child as AProtobufServiceRpcElement;
+                    FormatServiceRpc(sub_element, indent + "    ", ref buffer);
+
+                    if (next_child == null || (next_child.GetNodeType() != "LineComment" && next_child.GetNodeType() != "BlockComment"))
+                    {
+                        buffer += "\n";
+                    }
+                    else
+                    {
+                        if (next_child.GetStartLine() == sub_child.GetEndLine())
+                        {
+                            buffer += " ";
+                        }
+                        else
+                        {
+                            buffer += "\n";
+                        }
+                    }
+                }
+                else if (sub_child.GetNodeType() == "LineComment" || sub_child.GetNodeType() == "BlockComment")
+                {
+                    if (last_line != 0 && sub_child.GetStartLine() != last_line)
+                        buffer += indent + "    ";
+
+                    if (sub_child.GetNodeType() == "LineComment")
+                    {
+                        var value = sub_child.GetElementText();
+                        if (value.Length >= 3 && value[2] != '/')
+                            buffer += "// " + value.Substring(2).Trim();
+                        else
+                            buffer += value;
+                    }
+                    else
+                        buffer += sub_child.GetElementText();
+
+                    buffer += "\n";
+                }
+
+                last_line = sub_child.GetEndLine();
+            }
+            
+            buffer += indent + "}\n";
+        }
+
+        public void FormatServiceRpc(AProtobufServiceRpcElement child, string indent, ref string buffer)
+		{
+            var rpc_name = child.GetServiceRpcName();
+            if (rpc_name == null) throw new System.Exception("child.GetServiceRpcName() == null");
+
+            buffer += indent + "rpc " + rpc_name.GetElementText() + "(";
+
+            var rpc_req = child.GetServiceRpcReq();
+            if (rpc_req == null) throw new System.Exception("child.GetServiceRpcReq() == null");
+            buffer += FormatCustomType(rpc_req.GetCustomType()) + ")";
+
+            buffer += " returns (";
+
+            var rpc_rsp = child.GetServiceRpcRsp();
+            if (rpc_rsp == null) throw new System.Exception("child.GetServiceRpcRsp() == null");
+            buffer += FormatCustomType(rpc_rsp.GetCustomType()) + ")";
+
+            var rpc_body = child.GetServiceRpcBody();
+            if (rpc_body != null)
+			{
+                buffer += "\n";
+                FormatServiceRpcBody(rpc_body, indent, ref buffer);
+            }
+
+            buffer += ";";
+        }
+
+        public void FormatServiceRpcBody(AProtobufServiceRpcBodyElement child, string indent, ref string buffer)
+		{
+            int option_name_max = 0;
+            int option_value_max = 0;
+            var option_list = child.GetServiceOptionList();
+            foreach (var option in option_list)
+            {
+                var custom_type = option.GetCustomType();
+                if (custom_type == null) throw new System.Exception("option.GetCustomType() == null");
+                string name = "(" + FormatCustomType(custom_type) + ")";
+                if (option_name_max < name.Length) option_name_max = name.Length;
+
+                var text = option.GetConst();
+                if (text == null) throw new System.Exception("option.GetConst() == null");
+                if (option_value_max < text.GetLength() + 3) option_value_max = text.GetLength() + 3;// 算上text前面的等号和空格，text后面的分号 
+            }
+            // 将option_name_max,option_value_max调整为大于当前的4的倍数
+            option_name_max += 4 - option_name_max % 4;
+            option_value_max += 4 - option_value_max % 4;
+
+            buffer += indent + "{\n";
+
+            int last_line = 0;
+            var child_list = child.GetChilds();
+            for (int index = 0; index < child_list.Count; ++index)
+            {
+                var sub_child = child_list[index];
+                ABnfElement next_child = null;
+                if (index + 1 < child_list.Count) next_child = child_list[index + 1];
+
+                if (last_line != 0)
+                {
+                    int line_count = sub_child.GetStartLine() - last_line - 1;
+                    for (int i = 0; i < line_count; ++i) buffer += "\n";
+                }
+
+                if (sub_child.GetNodeType() == "LineComment" || sub_child.GetNodeType() == "BlockComment")
+                {
+                    if (last_line != 0 && sub_child.GetStartLine() != last_line)
+                        buffer += indent + "    ";
+
+                    if (sub_child.GetNodeType() == "LineComment")
+                    {
+                        var value = sub_child.GetElementText();
+                        if (value.Length >= 3 && value[2] != '/')
+                            buffer += "// " + value.Substring(2).Trim();
+                        else
+                            buffer += value;
+                    }
+                    else
+                        buffer += sub_child.GetElementText();
+
+                    buffer += "\n";
+                }
+                else if (sub_child is AProtobufServiceOptionElement)
+                {
+                    buffer += indent + "    option ";
+
+                    var sub_element = sub_child as AProtobufServiceOptionElement;
+                    var custom_type = sub_element.GetCustomType();
+                    if (custom_type == null) throw new System.Exception("sub_element.GetCustomType() == null");
+
+                    string name = "(" + FormatCustomType(custom_type) + ")";
+                    buffer += name;
+
+                    var text = sub_element.GetConst();
+                    if (text == null) throw new System.Exception("sub_element.GetConst() == null");
+
+                    for (int i = name.Length; i < option_name_max; ++i) buffer += " ";
+                    var option_value = "= " + text.GetElementText() + ";";
+                    buffer += option_value;
+
+                    if (next_child == null || (next_child.GetNodeType() != "LineComment" && next_child.GetNodeType() != "BlockComment"))
+                    {
+                        buffer += "\n";
+                    }
+                    else
+                    {
+                        if (next_child.GetStartLine() == sub_child.GetEndLine())
+                        {
+                            for (int i = option_value.Length; i < option_value_max; ++i) buffer += " ";
+                        }
+                        else
+                        {
+                            buffer += "\n";
+                        }
+                    }
+                }
+                
+                last_line = sub_child.GetEndLine();
+            }
+            buffer += indent + "}";
         }
 
         public int CalcAllTypeFormatLength(AProtobufAllTypeElement all_type)

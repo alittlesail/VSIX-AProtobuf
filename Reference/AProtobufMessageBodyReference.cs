@@ -10,7 +10,8 @@ namespace ALittle
             ABnfElement parent = m_element.GetParent();
             if (parent is AProtobufMessageElement || parent is AProtobufOneofElement)
             {
-                if (select is ABnfStringElement && (select.GetElementText() == "{" || select.GetElementText() == "}"))
+                var childs = m_element.GetChilds();
+                if (select is ABnfStringElement && (select.GetElementText() == "{" || (select.GetElementText() == "}" && childs.Count > 0 && childs[0].GetStartLine() != select.GetStartLine())))
                     return parent.GetReference().GetDesiredIndentation(offset, null);
 
                 return parent.GetReference().GetDesiredIndentation(offset, null) + ALanguageSmartIndentProvider.s_indent_size;

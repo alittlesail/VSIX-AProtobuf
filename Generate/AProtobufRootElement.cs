@@ -127,6 +127,22 @@ namespace ALittle
             list.AddRange(m_list_Option);
             return list;
         }
+        List<AProtobufServiceElement> m_list_Service = null;
+        public List<AProtobufServiceElement> GetServiceList()
+        {
+            var list = new List<AProtobufServiceElement>();
+            if (m_list_Service == null)
+            {
+                m_list_Service = new List<AProtobufServiceElement>();
+                foreach (var child in m_childs)
+                {
+                    if (child is AProtobufServiceElement)
+                        m_list_Service.Add(child as AProtobufServiceElement);
+                }   
+            }
+            list.AddRange(m_list_Service);
+            return list;
+        }
 
 	}
 }

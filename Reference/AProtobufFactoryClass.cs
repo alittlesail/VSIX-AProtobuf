@@ -60,6 +60,12 @@ namespace ALittle
             if (element is AProtobufSyntaxElement) return new AProtobufSyntaxReference(element);
             if (element is AProtobufTextElement) return new AProtobufTextReference(element);
             if (element is AProtobufRegexElement) return new AProtobufRegexReference(element);
+            if (element is AProtobufServiceElement) return new AProtobufServiceReference(element);
+            if (element is AProtobufServiceNameElement) return new AProtobufServiceNameReference(element);
+            if (element is AProtobufServiceBodyElement) return new AProtobufServiceBodyReference(element);
+            if (element is AProtobufServiceRpcElement) return new AProtobufServiceRpcReference(element);
+            if (element is AProtobufServiceRpcNameElement) return new AProtobufServiceRpcNameReference(element);
+            if (element is AProtobufServiceRpcBodyElement) return new AProtobufServiceRpcBodyReference(element);
 
             return new AProtobufReferenceTemplate<ABnfElement>(element);
         }

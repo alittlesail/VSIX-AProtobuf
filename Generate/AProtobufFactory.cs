@@ -53,6 +53,15 @@ namespace ALittle
             m_create_map["EnumName"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumNameElement(factory, file, line, col, offset, type); };
             m_create_map["EnumVar"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumVarElement(factory, file, line, col, offset, type); };
             m_create_map["EnumVarName"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumVarNameElement(factory, file, line, col, offset, type); };
+            m_create_map["Service"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceBody"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceBodyElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceName"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceNameElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceRpc"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceRpcElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceRpcName"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceRpcNameElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceRpcReq"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceRpcReqElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceRpcRsp"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceRpcRspElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceRpcBody"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceRpcBodyElement(factory, file, line, col, offset, type); };
+            m_create_map["ServiceOption"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceOptionElement(factory, file, line, col, offset, type); };
 
         }
 

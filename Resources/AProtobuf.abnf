@@ -1,6 +1,6 @@
 
 // 语法树的跟【Root是系统内置，必须定义Root作为语法根节点，没有定义会报错】
-Root = Syntax? (Package | Import | Extend | Message | Enum | Option)*;
+Root = Syntax? (Package | Import | Extend | Message | Enum | Option | Service)*;
 // 行注释【LineComment是系统内置的行注释语法规则名】
 LineComment : "\A/{1}" = "\A//{1}.*";
 // 块注释【BlockComment是系统内置的块注释语法规则名】
@@ -74,3 +74,15 @@ EnumBody = '{'@ EnumVar* '}';
 EnumName = Id#;
 EnumVar = EnumVarName@ '='@ Number ';';
 EnumVarName = Id;
+
+// Service定义
+Service = <service>@ (ServiceName ServiceBody?)?;
+ServiceBody = '{'@ ServiceRpc* '}';
+ServiceName = Id#;
+ServiceRpc = <rpc>@ ServiceRpcName '('@ ServiceRpcReq ')' <returns>@ '('@ ServiceRpcRsp ')' ServiceRpcBody? ';'?;
+ServiceRpcName = Id#;
+ServiceRpcReq = CustomType;
+ServiceRpcRsp = CustomType;
+ServiceRpcBody = '{'@ ServiceOption* '}';
+
+ServiceOption = <option>@ '('@ CustomType ')' '=' Const ';';
