@@ -203,7 +203,7 @@ namespace ALittle
         {
             var name = child.GetPackageName();
             if (name == null) throw new System.Exception("child.GetPackageName() == null");
-            var id_list = name.GetIdList();
+            var id_list = name.GetPackageSplitNameList();
             var name_list = new List<string>();
             foreach (var id in id_list) name_list.Add(id.GetElementText());
             if (name_list.Count == 0) throw new System.Exception("name_list.Count == 0");

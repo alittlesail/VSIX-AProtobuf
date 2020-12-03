@@ -22,7 +22,8 @@ Syntax = <syntax>@ '='@ Text ';'?;
 
 // °ü
 Package = <package>@ PackageName ';'?;
-PackageName = Id@ ('.'@ Id)*;
+PackageName = PackageSplitName@ ('.'@ PackageSplitName)*;
+PackageSplitName = Id#;
 
 // µ¼Èë
 Import = <import>@ Text ';'?;

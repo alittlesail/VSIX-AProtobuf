@@ -32,6 +32,10 @@ namespace ALittle
                 if (File.Exists(full_path)) return null;
             }
 
+            // 获取当前文件所在的文件夹，然后补上value
+            full_path = Path.GetDirectoryName(m_element.GetFullPath()) + "\\" + value.Replace('/', '\\');
+            if (File.Exists(full_path)) return null;
+
             return new ABnfGuessError(child, "import的文件不存在");
         }
 

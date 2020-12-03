@@ -15,20 +15,20 @@ namespace ALittle
         {
         }
 
-        List<AProtobufIdElement> m_list_Id = null;
-        public List<AProtobufIdElement> GetIdList()
+        List<AProtobufPackageSplitNameElement> m_list_PackageSplitName = null;
+        public List<AProtobufPackageSplitNameElement> GetPackageSplitNameList()
         {
-            var list = new List<AProtobufIdElement>();
-            if (m_list_Id == null)
+            var list = new List<AProtobufPackageSplitNameElement>();
+            if (m_list_PackageSplitName == null)
             {
-                m_list_Id = new List<AProtobufIdElement>();
+                m_list_PackageSplitName = new List<AProtobufPackageSplitNameElement>();
                 foreach (var child in m_childs)
                 {
-                    if (child is AProtobufIdElement)
-                        m_list_Id.Add(child as AProtobufIdElement);
+                    if (child is AProtobufPackageSplitNameElement)
+                        m_list_PackageSplitName.Add(child as AProtobufPackageSplitNameElement);
                 }   
             }
-            list.AddRange(m_list_Id);
+            list.AddRange(m_list_PackageSplitName);
             return list;
         }
         List<AProtobufStringElement> m_list_String = null;

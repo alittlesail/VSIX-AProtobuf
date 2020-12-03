@@ -25,6 +25,7 @@ namespace ALittle
             m_create_map["Syntax"] = (factory, file, line, col, offset, type) => { return new AProtobufSyntaxElement(factory, file, line, col, offset, type); };
             m_create_map["Package"] = (factory, file, line, col, offset, type) => { return new AProtobufPackageElement(factory, file, line, col, offset, type); };
             m_create_map["PackageName"] = (factory, file, line, col, offset, type) => { return new AProtobufPackageNameElement(factory, file, line, col, offset, type); };
+            m_create_map["PackageSplitName"] = (factory, file, line, col, offset, type) => { return new AProtobufPackageSplitNameElement(factory, file, line, col, offset, type); };
             m_create_map["Import"] = (factory, file, line, col, offset, type) => { return new AProtobufImportElement(factory, file, line, col, offset, type); };
             m_create_map["Option"] = (factory, file, line, col, offset, type) => { return new AProtobufOptionElement(factory, file, line, col, offset, type); };
             m_create_map["OptionValue"] = (factory, file, line, col, offset, type) => { return new AProtobufOptionValueElement(factory, file, line, col, offset, type); };

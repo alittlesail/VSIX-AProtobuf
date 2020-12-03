@@ -35,9 +35,13 @@ namespace ALittle
 
         public override bool QueryCompletion(int offset, List<ALanguageCompletionInfo> list)
         {
-            var package_name = m_element.GetParent() as AProtobufPackageNameElement;
-            if (package_name != null)
-                return package_name.GetReference().QueryCompletion(offset, list);
+            var package_split_name = m_element.GetParent() as AProtobufPackageSplitNameElement;
+            if (package_split_name != null)
+			{
+                var package_name = package_split_name.GetParent() as AProtobufPackageNameElement;
+                if (package_name != null)
+                    return package_name.GetReference().QueryCompletion(offset, list);
+            }   
 
             var message_name = m_element.GetParent() as AProtobufMessageNameElement;
             if (message_name != null)

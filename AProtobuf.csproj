@@ -238,6 +238,7 @@
     <Compile Include="Generate\AProtobufOptionValueElement.cs" />
     <Compile Include="Generate\AProtobufPackageElement.cs" />
     <Compile Include="Generate\AProtobufPackageNameElement.cs" />
+    <Compile Include="Generate\AProtobufPackageSplitNameElement.cs" />
     <Compile Include="Generate\AProtobufPrimitiveTypeElement.cs" />
     <Compile Include="Generate\AProtobufRegexElement.cs" />
     <Compile Include="Generate\AProtobufRepeatedTypeElement.cs" />

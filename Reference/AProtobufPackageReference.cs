@@ -8,10 +8,11 @@ namespace ALittle
         public AProtobufPackageReference(ABnfElement element) : base(element) { }
 
         public override ABnfGuessError CheckError()
-        {   
-            // 检查最后的分号
-            if (m_element.GetString() == null)
+        {
+            var childs = m_element.GetChilds();
+            if (childs.Count == 0 || childs[childs.Count - 1].GetElementText() != ";")
                 return new ABnfGuessError(m_element, "package语句必须以;结尾");
+
             return null;
         }
     }
