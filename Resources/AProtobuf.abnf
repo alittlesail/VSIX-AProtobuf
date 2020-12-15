@@ -59,7 +59,7 @@ MessageName = Id#;
 MessageBody = '{'@ (Enum | Message | Oneof | MessageOption | MessageExtensions | MessageReserved | MessageVar)* '}';
 MessageVarModifier = <required> | <optional> | <singular>;
 MessageVar = (MessageVarModifier@)? AllType@ MessageVarName@ '='@ Number MessageVarOption? ';';
-MessageVarName = Id;
+MessageVarName = Id#;
 MessageVarOption = '['@ Id '=' MessageVarOptionValue ']';
 MessageVarOptionValue = Const | Id;
 
