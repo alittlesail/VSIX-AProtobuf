@@ -261,6 +261,7 @@
     <Compile Include="Main\AProtobufExport.cs" />
     <Compile Include="Options\DialogPageProvider.cs" />
     <Compile Include="Options\GeneralOptions.cs" />
+    <Compile Include="Generate\AProtobufEnumOptionElement.cs" />
     <Compile Include="Reference\AProtobufMessageOptionReference.cs" />
     <Compile Include="Reference\AProtobufOneofNameReference.cs" />
     <Compile Include="Reference\AProtobufLineCommentReference.cs" />

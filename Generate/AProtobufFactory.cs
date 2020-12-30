@@ -54,6 +54,7 @@ namespace ALittle
             m_create_map["EnumName"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumNameElement(factory, file, line, col, offset, type); };
             m_create_map["EnumVar"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumVarElement(factory, file, line, col, offset, type); };
             m_create_map["EnumVarName"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumVarNameElement(factory, file, line, col, offset, type); };
+            m_create_map["EnumOption"] = (factory, file, line, col, offset, type) => { return new AProtobufEnumOptionElement(factory, file, line, col, offset, type); };
             m_create_map["Service"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceElement(factory, file, line, col, offset, type); };
             m_create_map["ServiceBody"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceBodyElement(factory, file, line, col, offset, type); };
             m_create_map["ServiceName"] = (factory, file, line, col, offset, type) => { return new AProtobufServiceNameElement(factory, file, line, col, offset, type); };

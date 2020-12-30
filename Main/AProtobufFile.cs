@@ -245,9 +245,29 @@ namespace ALittle
                 if (number == null) throw new System.Exception("variable.GetNumber() == null");
                 if (number_max < number.GetLength() + 3) number_max = number.GetLength() + 3; // 算上number前面的等号和空格，number后面的分号
             }
+
+            int option_name_max = 0;
+            int option_value_max = 0;
+            var option_list = enum_body.GetEnumOptionList();
+            foreach (var option in option_list)
+            {
+                var custom_type = option.GetCustomType();
+                if (custom_type == null) throw new System.Exception("option.option() == null");
+                var custom_type_value = FormatCustomType(custom_type);
+                if (option_name_max < custom_type_value.Length) option_name_max = custom_type_value.Length;
+
+                var const_type = option.GetConst();
+                if (const_type == null) throw new System.Exception("option.GetConst() == null");
+                var const_type_value = const_type.GetElementText();
+                if (option_value_max < const_type_value.Length + 3) option_value_max = const_type_value.Length +3; // 算上number前面的等号和空格，number后面的分号
+            }
+
             // 将name_max,number_max调整为大于当前的4的倍数
             name_max += 4 - name_max % 4;
             number_max += 4 - number_max % 4;
+
+            option_name_max += 4 - option_name_max % 4;
+            option_value_max += 4 - option_value_max % 4;
 
             buffer += indent + "enum " + enum_name.GetElementText() + "\n";
             buffer += indent + "{\n";
@@ -290,6 +310,39 @@ namespace ALittle
                         if (next_child.GetStartLine() == sub_child.GetEndLine())
                         {
                             for (int i = number_value.Length; i < number_max; ++i) buffer += " ";
+                        }
+                        else
+                        {
+                            buffer += "\n";
+                        }
+                    }
+                }
+                else if (sub_child is AProtobufEnumOptionElement)
+                {
+                    var sub_element = sub_child as AProtobufEnumOptionElement;
+                    
+                    var custom_type = sub_element.GetCustomType();
+                    if (custom_type == null) throw new System.Exception("sub_element.GetCustomType() == null");
+                    var custom_type_value = FormatCustomType(custom_type);
+
+                    var const_type = sub_element.GetConst();
+                    if (const_type == null) throw new System.Exception("sub_element.GetConst() == null");
+                    var const_type_value = const_type.GetElementText();
+
+                    buffer += indent + "    option " + custom_type_value;
+                    for (int i = custom_type_value.Length; i < option_name_max; ++i) buffer += " ";
+                    const_type_value = "= " + const_type_value + ";";
+                    buffer += const_type_value;
+
+                    if (next_child == null || (next_child.GetNodeType() != "LineComment" && next_child.GetNodeType() != "BlockComment"))
+                    {
+                        buffer += "\n";
+                    }
+                    else
+                    {
+                        if (next_child.GetStartLine() == sub_child.GetEndLine())
+                        {
+                            for (int i = const_type_value.Length; i < option_value_max; ++i) buffer += " ";
                         }
                         else
                         {

@@ -15,6 +15,22 @@ namespace ALittle
         {
         }
 
+        List<AProtobufEnumOptionElement> m_list_EnumOption = null;
+        public List<AProtobufEnumOptionElement> GetEnumOptionList()
+        {
+            var list = new List<AProtobufEnumOptionElement>();
+            if (m_list_EnumOption == null)
+            {
+                m_list_EnumOption = new List<AProtobufEnumOptionElement>();
+                foreach (var child in m_childs)
+                {
+                    if (child is AProtobufEnumOptionElement)
+                        m_list_EnumOption.Add(child as AProtobufEnumOptionElement);
+                }   
+            }
+            list.AddRange(m_list_EnumOption);
+            return list;
+        }
         List<AProtobufEnumVarElement> m_list_EnumVar = null;
         public List<AProtobufEnumVarElement> GetEnumVarList()
         {

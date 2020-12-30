@@ -330,7 +330,6 @@ namespace ALittle
             if (pick is AProtobufEnumNameElement) return null;
             if (pick is AProtobufOneofNameElement) return null;
             if (pick is AProtobufMessageVarNameElement) return null;
-            if (pick is AProtobufEnumVarNameElement) return null;
 
             if (pick is AProtobufCustomTypeElement)
             {

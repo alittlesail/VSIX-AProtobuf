@@ -71,10 +71,11 @@ MessageReservedValue = Text | ( Number (<to>@ (Number | <max>))? );
 
 // Enum定义
 Enum = <enum>@ (EnumName EnumBody?)?;
-EnumBody = '{'@ EnumVar* '}';
+EnumBody = '{'@ (EnumOption | EnumVar)* '}';
 EnumName = Id#;
 EnumVar = EnumVarName@ '='@ Number ';';
-EnumVarName = Id;
+EnumVarName = Id#;
+EnumOption = <option>@ CustomType '='@ Const ';';
 
 // Service定义
 Service = <service>@ (ServiceName ServiceBody?)?;
