@@ -276,11 +276,8 @@ namespace ALittle
                     var project = pair.Value as AProtobufProjectInfo;
                     if (project == null) continue;
 
-                    if (package == "")
-                    {
-                        element = project.FindEnumVarNameInAllPackgae(name);
-                        if (element != null) break;
-                    }
+                    element = project.FindEnumVarNameInAllPackgae(name);
+                    if (element != null) break;
                 }
             }
 
